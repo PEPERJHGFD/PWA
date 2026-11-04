@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f3a">
+  <meta name="description" content="Estimador de cantidades de acero longitudinal y estribos para columnas de concreto.">
+  <title>Acero para columnas | Estimador</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="metrics.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Acero para columnas, inicio">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M9 5h18v26H9zM13 9v18m10-18v18M9 13h18M9 23h18"/></svg></span>
+      <span>OBRA <b>/</b> CÁLCULO</span>
+    </a>
+    <div class="topbar-actions">
+      <span class="offline-indicator"><i></i><span id="connection-label">En línea</span></span>
+      <button class="titlebar-button" id="reset-button" type="button" title="Restablecer cálculo" aria-label="Restablecer cálculo">↺</button>
+      <button class="titlebar-button" id="export-button" type="button" title="Exportar resultados" aria-label="Exportar resultados">⇩</button>
+      <button class="titlebar-button" id="fullscreen-button" type="button" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
+      <button class="titlebar-button" id="help-button" type="button" title="Ver criterios de cálculo" aria-label="Ver criterios de cálculo">?</button>
+      <button class="titlebar-button share-button" id="share-button" type="button" title="Compartir resultado" aria-label="Compartir resultado"><span aria-hidden="true">⇪</span><span class="share-label">Compartir</span></button>
+      <button class="titlebar-button share-button" id="pdf-share-button" type="button" title="Compartir o descargar resultado en PDF" aria-label="Compartir o descargar resultado en PDF"><span aria-hidden="true">▤</span><span class="share-label">PDF</span></button>
+      <button class="install-button" id="install-button" type="button" hidden><span aria-hidden="true">↓</span><span class="install-label">Instalar</span></button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="intro">
+      <div class="intro-copy">
+        <p class="eyebrow"><span>HERRAMIENTA DE OBRA</span><span class="eyebrow-line"></span><span>01 — 03</span></p>
+        <h1>Acero para<br><em>columnas.</em></h1>
+        <p class="intro-text">Estima varillas longitudinales y estribos a partir de la geometría de tu columna.</p>
+      </div>
+      <div class="column-illustration" aria-hidden="true">
+        <div class="dimension dimension-top"><span>SECCIÓN</span><i></i></div>
+        <svg viewBox="0 0 190 220" role="presentation">
+          <path class="column-face" d="M44 49 115 22l44 22v129l-71 29-44-23z"/>
+          <path class="column-side" d="m115 22 44 22v129l-71 29V73z"/>
+          <path class="stirrup" d="m58 62 57-21 31 16v105l-56 23-32-17z"/>
+          <path class="bar" d="m59 62 0 105m87-110v105m-87-105 87 0m-87 105 87 0m-87-105 87-32m-87 137 87-32"/>
+          <circle cx="59" cy="62" r="4"/><circle cx="146" cy="57" r="4"/><circle cx="59" cy="167" r="4"/><circle cx="146" cy="162" r="4"/>
+        </svg>
+        <div class="dimension dimension-side"><i></i><span>ALTURA</span></div>
+        <span class="illustration-note">REFUERZO<br>CONFINADO</span>
+      </div>
+    </section>
+
+    <section class="workbench" aria-label="Estimador de acero">
+      <form class="input-panel" id="calculator-form">
+        <div class="panel-heading">
+          <div><span class="step-number">01</span><h2>Datos de la columna</h2></div>
+        </div>
+
+        <fieldset>
+          <legend><span class="legend-index">A</span> Geometría <small>DIMENSIONES TERMINADAS</small></legend>
+          <div class="field-grid">
+            <label class="field"><span>Ancho <small>b</small></span><span class="input-wrap"><input name="width" type="number" min="10" max="300" step="1" value="30" required><span>cm</span></span></label>
+            <label class="field"><span>Fondo <small>h</small></span><span class="input-wrap"><input name="depth" type="number" min="10" max="300" step="1" value="30" required><span>cm</span></span></label>
+            <label class="field field-wide"><span>Altura de columna</span><span class="input-wrap"><input name="height" type="number" min="0.5" max="30" step="0.1" value="3.0" required><span>m</span></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="legend-index">B</span> Refuerzo longitudinal <small>BARRAS VERTICALES</small></legend>
+          <div class="field-grid">
+            <label class="field"><span>Cantidad de barras</span><span class="input-wrap"><input name="barCount" type="number" min="4" max="40" step="1" value="8" required><span>pzas</span></span></label>
+            <label class="field"><span>Diámetro</span><span class="input-wrap"><select name="barDiameter"><option value="9.5">3/8″ · 9.5 mm</option><option value="12.7" selected>1/2″ · 12.7 mm</option><option value="15.9">5/8″ · 15.9 mm</option><option value="19.1">3/4″ · 19.1 mm</option><option value="22.2">7/8″ · 22.2 mm</option><option value="25.4">1″ · 25.4 mm</option><option value="custom">Otro diámetro</option></select><input class="custom-diameter" name="customBarDiameter" type="number" min="4" max="50" step="0.1" value="12.7" aria-label="Diámetro personalizado en milímetros" hidden><span>mm</span></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="legend-index">C</span> Estribos <small>REFUERZO TRANSVERSAL</small></legend>
+          <div class="field-grid">
+            <label class="field"><span>Diámetro</span><span class="input-wrap"><select name="tieDiameter"><option value="6.35" selected>1/4″ · 6.35 mm</option><option value="9.5">3/8″ · 9.5 mm</option><option value="12.7">1/2″ · 12.7 mm</option></select><span>mm</span></span></label>
+            <label class="field"><span>Separación</span><span class="input-wrap"><input name="spacing" type="number" min="5" max="100" step="1" value="20" required><span>cm</span></span></label>
+            <label class="field field-wide"><span>Recubrimiento hasta el estribo</span><span class="input-wrap"><input name="cover" type="number" min="2" max="10" step="0.5" value="4" required><span>cm</span></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="purchase-fields">
+          <legend><span class="legend-index">D</span> Compra y desperdicio <small>ESTIMACIÓN DE OBRA</small></legend>
+          <div class="field-grid">
+            <label class="field"><span>Largo comercial</span><span class="input-wrap"><input name="stockLength" type="number" min="3" max="18" step="0.5" value="12" required><span>m</span></span></label>
+            <label class="field"><span>Desperdicio</span><span class="input-wrap"><input name="waste" type="number" min="0" max="30" step="1" value="10" required><span>%</span></span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="results-panel" aria-live="polite">
+        <div class="results-header"><div><span class="step-number step-number-light">02</span><span class="results-kicker">RESUMEN DE MATERIALES</span></div><span class="live-tag"><i></i> EN VIVO</span></div>
+        <div class="ratio-block">
+          <div class="ratio-title"><span>Cuantía de acero</span><button type="button" class="info-button" aria-label="Información sobre cuantía" title="Referencia general: 1% a 8% del área de la sección">i</button></div>
+          <div class="ratio-value"><strong id="ratio-value">1.13</strong><span>%</span><span class="ratio-status" id="ratio-status">EN RANGO DE REFERENCIA</span></div>
+          <div class="ratio-track" role="img" aria-label="Cuantía comparada con el rango de referencia del 1 al 8 por ciento"><span class="ratio-fill" id="ratio-fill"></span><i class="range-start"></i><i class="range-end"></i></div>
+          <div class="ratio-scale"><span>0%</span><span>1%</span><span>8%</span><span>12%</span></div>
+          <p class="ratio-caption">Referencia indicativa: acero entre 1% y 8% del área bruta.</p>
+          <div class="area-metrics">
+            <div><span>Área bruta de sección</span><strong id="section-area">900 cm²</strong></div>
+            <div><span>Acero provisto <i>/ mín. ref. 1%</i></span><strong><span id="steel-area">10.13</span><small> / <span id="minimum-steel-area">9.00</span> cm²</small></strong></div>
+            <div class="minimum-bars-metric"><span>Varillas para alcanzar 1% <i>· referencia</i></span><strong id="minimum-bar-count">8 barras</strong></div>
+          </div>
+        </div>
+        <div class="results-section">
+          <div class="result-row"><span><i class="result-icon icon-bars">↕</i>Acero longitudinal</span><strong id="longitudinal-result">3 varillas</strong></div>
+          <div class="result-detail"><span id="longitudinal-meters">24.0 m netos</span><span id="longitudinal-stock">3 piezas de 12 m</span></div>
+          <div class="result-row"><span><i class="result-icon icon-ties">▦</i>Estribos</span><strong id="ties-result">16 pzas</strong></div>
+          <div class="result-detail"><span id="ties-length">6.6 m de varilla</span><span id="ties-stock">1 pieza de 12 m</span></div>
+        </div>
+        <div class="total-box"><span><span class="total-mark">↗</span>Compra estimada</span><strong id="total-result">4 <small>varillas</small></strong><span class="total-caption" id="total-caption">3 longitudinales + 1 para estribos</span></div>
+        <p class="material-note" id="material-note">Diámetros de compra: 1/2″ longitudinal · 1/4″ estribos</p>
+      </aside>
+    </section>
+
+    <section class="method-strip" id="criteria" tabindex="-1" aria-label="Criterios de cálculo">
+      <div class="method-title"><span>CRITERIO DE ESTIMACIÓN</span><strong>Qué incluye el cálculo</strong></div>
+      <div class="method-item"><span class="method-number">01</span><p>Área de sección <b>b × h</b> y acero longitudinal según diámetro y cantidad.</p></div>
+      <div class="method-item"><span class="method-number">02</span><p>Estribos a separación indicada, con dos ganchos estimados de <b>10 diámetros</b>.</p></div>
+      <div class="method-item"><span class="method-number">03</span><p>Redondeo de piezas comerciales al alza, después del desperdicio configurado.</p></div>
+    </section>
+
+    <footer class="disclaimer"><span class="disclaimer-icon">!</span><p><strong>Estimación de cantidades, no diseño estructural.</strong> La cuantía 1%–8% es solo una referencia general. No verifica cargas, sismo, confinamiento, anclajes, traslapes ni el reglamento aplicable. Consulta a un profesional estructural antes de construir.</p><span class="footer-code">OBRA-01 <i>·</i> V.1</span></footer>
+  </main>
+</body>
+</html>

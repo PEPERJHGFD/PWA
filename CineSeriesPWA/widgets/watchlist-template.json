@@ -1,0 +1,14 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    { "type": "TextBlock", "text": "Mi lista de Plano", "size": "Medium", "weight": "Bolder" },
+    { "type": "TextBlock", "text": "${count} títulos guardados", "wrap": true },
+    { "type": "TextBlock", "text": "${next}", "wrap": true, "spacing": "Medium" },
+    { "type": "TextBlock", "text": "${updated}", "size": "Small", "isSubtle": true, "wrap": true }
+  ],
+  "actions": [
+    { "type": "Action.Execute", "title": "Abrir mi lista", "verb": "open-watchlist" }
+  ]
+}

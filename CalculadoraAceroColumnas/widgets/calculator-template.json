@@ -1,0 +1,41 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Acero para columna",
+      "size": "Medium",
+      "weight": "Bolder"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Sección ${section} · altura ${height}",
+      "wrap": true
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        { "title": "Cuantía", "value": "${ratio}" },
+        { "title": "Longitudinal", "value": "${longitudinal}" },
+        { "title": "Estribos", "value": "${ties}" },
+        { "title": "Compra estimada", "value": "${purchase}" }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Actualizado: ${updated}",
+      "size": "Small",
+      "isSubtle": true,
+      "wrap": true
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Execute",
+      "title": "Abrir calculadora",
+      "verb": "open-calculator"
+    }
+  ]
+}

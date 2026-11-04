@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="304" viewBox="0 0 300 304">
+  <rect x="1" y="1" width="298" height="302" rx="22" fill="#f5f6f1"/>
+  <rect x="14" y="14" width="272" height="276" rx="18" fill="#173f3a"/>
+  <text x="32" y="50" fill="#fff9e9" font-family="Arial, sans-serif" font-size="18" font-weight="700">Acero para columna</text>
+  <text x="32" y="76" fill="#c5d7c7" font-family="Arial, sans-serif" font-size="12">Sección 30 × 30 cm · altura 3 m</text>
+  <path d="M32 94h236" stroke="#ffffff" stroke-opacity=".2"/>
+  <text x="32" y="122" fill="#c5d7c7" font-family="Arial, sans-serif" font-size="12">Cuantía</text>
+  <text x="32" y="157" fill="#f1c965" font-family="Arial, sans-serif" font-size="29" font-weight="700">1.13%</text>
+  <text x="32" y="192" fill="#fff9e9" font-family="Arial, sans-serif" font-size="13">Longitudinal</text>
+  <text x="268" y="192" fill="#fff9e9" font-family="Arial, sans-serif" font-size="13" text-anchor="end">8 barras</text>
+  <text x="32" y="218" fill="#fff9e9" font-family="Arial, sans-serif" font-size="13">Estribos</text>
+  <text x="268" y="218" fill="#fff9e9" font-family="Arial, sans-serif" font-size="13" text-anchor="end">16 piezas</text>
+  <path d="M32 235h236" stroke="#ffffff" stroke-opacity=".2"/>
+  <text x="32" y="260" fill="#c5d7c7" font-family="Arial, sans-serif" font-size="12">Compra estimada</text>
+  <text x="268" y="260" fill="#f1c965" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="end">5 varillas</text>
+</svg>

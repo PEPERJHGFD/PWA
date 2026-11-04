@@ -1,0 +1,50 @@
+{
+  "name": "Acero para columnas | Estimador",
+  "short_name": "Acero Columna",
+  "description": "Estimador de cantidades de acero longitudinal y estribos para columnas de concreto.",
+  "lang": "es-MX",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay"],
+  "orientation": "portrait-primary",
+  "background_color": "#f5f6f1",
+  "theme_color": "#173f3a",
+  "share_target": {
+    "action": "/",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [{ "name": "file", "accept": ["text/plain", "application/pdf", "image/*"] }]
+    }
+  },
+  "widgets": [
+    {
+      "name": "Resumen de acero para columna",
+      "short_name": "Acero columna",
+      "description": "Consulta el último cálculo de acero y abre la calculadora.",
+      "tag": "acero-columnas-summary",
+      "template": "acero-columnas-summary",
+      "ms_ac_template": "./widgets/calculator-template.json",
+      "data": "./widgets/calculator-data.json",
+      "screenshots": [
+        {
+          "src": "./widgets/widget-screenshot.svg",
+          "sizes": "300x304",
+          "type": "image/svg+xml",
+          "label": "Vista previa del resumen de acero para columna",
+          "platform": "Windows"
+        }
+      ],
+      "type": "application/json",
+      "auth": false,
+      "update": 3600
+    }
+  ],
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

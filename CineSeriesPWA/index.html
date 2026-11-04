@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10111b">
+  <meta name="description" content="Descubre, guarda y organiza tus películas y series favoritas.">
+  <title>Plano — Películas y series</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Plano, inicio">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M7 10h22v16H7zM11 10l5 8m4-8 5 8M7 18h22m-17 8-5-8m13 8-5-8m12 8-5-8"/></svg></span>
+      <span>PLANO<span class="brand-dot">.</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      <a class="nav-link active" href="#inicio" data-view="discover">Descubrir</a>
+      <a class="nav-link" href="#catalogo" data-view="movies">Películas</a>
+      <a class="nav-link" href="#catalogo" data-view="series">Series</a>
+      <a class="nav-link" href="#catalogo" data-view="saved">Mi lista <span id="saved-count" class="nav-count">0</span></a>
+    </nav>
+    <div class="topbar-actions">
+      <span class="offline-indicator"><i></i><span id="connection-label">En línea</span></span>
+      <button class="icon-button" id="reset-button" type="button" title="Restablecer mi biblioteca" aria-label="Restablecer mi biblioteca">↺</button>
+      <button class="icon-button" id="export-button" type="button" title="Exportar mi lista" aria-label="Exportar mi lista">⇩</button>
+      <button class="icon-button" id="fullscreen-button" type="button" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
+      <button class="icon-button" id="help-button" type="button" title="Cómo usar Plano" aria-label="Cómo usar Plano">?</button>
+      <button class="icon-button" id="pdf-share-button" type="button" title="Imprimir o guardar mi lista como PDF" aria-label="Imprimir o guardar mi lista como PDF">▤</button>
+      <button class="share-button" id="share-button" type="button" title="Compartir mi lista"><span aria-hidden="true">↗</span><span class="share-label">Compartir</span></button>
+      <button class="install-button" id="install-button" type="button" hidden><span aria-hidden="true">↓</span><span class="install-label">Instalar</span></button>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-label="Destacado de la semana">
+      <div class="hero-backdrop" aria-hidden="true">
+        <div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+        <div class="hero-art"><div class="art-moon"></div><div class="art-mountain mountain-back"></div><div class="art-mountain mountain-front"></div><div class="art-figure"></div></div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-star">✦</span> TU PRÓXIMA HISTORIA FAVORITA</p>
+        <span class="hero-tag">RECOMENDACIÓN PLANO <i>•</i> CINE</span>
+        <h1>Encuentra una<br>historia que <em>te mueva.</em></h1>
+        <p>Un rincón para descubrir, guardar y llevar el control de todo lo que quieres ver.</p>
+        <div class="hero-actions">
+          <button class="primary-button" id="hero-explore" type="button"><span>Explorar catálogo</span><b>→</b></button>
+          <button class="secondary-button" id="hero-add" type="button"><span>＋</span> Agregar título</button>
+        </div>
+        <div class="hero-meta"><span><i class="meta-dot"></i> Tu biblioteca, siempre contigo</span><span class="meta-divider"></span><span>Sin anuncios. Sin cuenta.</span></div>
+      </div>
+      <div class="hero-caption"><span>01</span><i></i><span>UNA HISTORIA A LA VEZ</span></div>
+    </section>
+
+    <section class="catalog-section" id="catalogo">
+      <div class="section-topline"><span class="section-kicker">TU CINE, A TU MANERA</span><span class="collection-count" id="collection-count">0 títulos</span></div>
+      <div class="catalog-heading">
+        <div><h2 id="section-title">Descubre algo nuevo<span>.</span></h2><p id="section-description">Historias seleccionadas para tu próxima noche de sofá.</p></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Buscar películas, series..." autocomplete="off" aria-label="Buscar películas y series"><kbd>⌘ K</kbd></label>
+      </div>
+      <div class="catalog-controls">
+        <div class="filter-tabs" role="group" aria-label="Filtrar por tipo">
+          <button class="filter-button active" type="button" data-filter="all">Todo</button>
+          <button class="filter-button" type="button" data-filter="movie">Películas</button>
+          <button class="filter-button" type="button" data-filter="series">Series</button>
+          <button class="filter-button" type="button" data-filter="saved">Mi lista</button>
+          <button class="filter-button" type="button" data-filter="watched">Vistas</button>
+        </div>
+        <label class="genre-select"><span>Género</span><select id="genre-filter" aria-label="Filtrar por género"><option value="all">Todos</option></select><b aria-hidden="true">⌄</b></label>
+      </div>
+      <div class="catalog-grid" id="catalog-grid" aria-live="polite"></div>
+      <div class="empty-state" id="empty-state" hidden><span class="empty-icon">✳</span><h3>No encontramos esa historia</h3><p>Prueba con otro título o cambia los filtros.</p><button class="text-button" id="clear-filters" type="button">Limpiar filtros <span>→</span></button></div>
+    </section>
+
+    <section class="guide-section" id="como-funciona" tabindex="-1">
+      <div class="guide-heading"><span class="section-kicker">DISEÑADO PARA TI</span><h2>Tu próxima maratón,<br><em>bien organizada.</em></h2></div>
+      <div class="guide-cards">
+        <article class="guide-card"><span class="guide-index">01</span><span class="guide-icon">⌕</span><h3>Descubre</h3><p>Explora una selección de películas y series. Busca por título o filtra por género.</p></article>
+        <article class="guide-card"><span class="guide-index">02</span><span class="guide-icon">♡</span><h3>Guarda</h3><p>Añade lo que te interesa a Mi lista y conserva tus favoritos en este dispositivo.</p></article>
+        <article class="guide-card"><span class="guide-index">03</span><span class="guide-icon">✓</span><h3>Lleva el control</h3><p>Marca lo que ya viste, añade tus propios títulos y comparte tu selección.</p></article>
+      </div>
+    </section>
+
+    <footer class="footer"><a class="brand footer-brand" href="#inicio"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M7 10h22v16H7zM11 10l5 8m4-8 5 8M7 18h22m-17 8-5-8m13 8-5-8m12 8-5-8"/></svg></span><span>PLANO<span class="brand-dot">.</span></span></a><p>Tu próxima historia favorita está más cerca.</p><span class="footer-code">HECHO PARA TU PRÓXIMA NOCHE DE CINE</span></footer>
+  </main>
+
+  <dialog class="title-dialog" id="title-dialog" aria-labelledby="dialog-title">
+    <form id="title-form" method="dialog">
+      <div class="dialog-heading"><div><span class="section-kicker">AMPLÍA TU BIBLIOTECA</span><h2 id="dialog-title">Agrega un título<span>.</span></h2></div><button class="dialog-close" type="button" id="dialog-close" aria-label="Cerrar">×</button></div>
+      <label class="form-field"><span>Nombre</span><input name="title" type="text" maxlength="70" placeholder="¿Qué quieres ver?" required></label>
+      <div class="form-row">
+        <label class="form-field"><span>Tipo</span><select name="type"><option value="movie">Película</option><option value="series">Serie</option></select></label>
+        <label class="form-field"><span>Año</span><input name="year" type="number" min="1888" max="2099" placeholder="2025"></label>
+      </div>
+      <label class="form-field"><span>Género</span><input name="genre" type="text" maxlength="32" placeholder="Drama, aventura..." value="Drama"></label>
+      <label class="form-field"><span>Nota personal <small>opcional</small></span><textarea name="note" rows="2" maxlength="120" placeholder="¿Por qué la quieres ver?"></textarea></label>
+      <div class="dialog-actions"><button class="secondary-button" type="button" id="cancel-add">Cancelar</button><button class="primary-button" type="submit"><span>Agregar a mi lista</span><b>→</b></button></div>
+    </form>
+  </dialog>
+  <div class="toast-notice" id="toast-notice" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

@@ -3,6 +3,7 @@
   "short_name": "Acero Columna",
   "description": "Estimador de cantidades de acero longitudinal y estribos para columnas de concreto.",
   "lang": "es-MX",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

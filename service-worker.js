@@ -2,7 +2,7 @@ const CACHE_NAME = 'acero-columnas-v6';
 const WIDGET_DATA_CACHE = 'acero-columnas-widget-data-v1';
 const WIDGET_TAG = 'acero-columnas-summary';
 const WIDGET_DATA_URL = new URL('./widgets/calculator-data.json', self.location.href).href;
-const APP_FILES = ['./', './index.html', './styles.css', './metrics.css', './app.js', './manifest.webmanifest', './icon.svg', './widgets/calculator-template.json', './widgets/calculator-data.json'];
+const APP_FILES = ['./', './index.html', './styles.css', './metrics.css', './app.js', './calculator.js', './manifest.webmanifest', './icon.svg', './widgets/calculator-template.json', './widgets/calculator-data.json'];
 
 async function updateWidget(widget) {
   if (!self.widgets || typeof self.widgets.updateByTag !== 'function') return;

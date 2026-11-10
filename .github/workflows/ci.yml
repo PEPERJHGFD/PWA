@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener repositorio
+        uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verificar sintaxis
+        run: npm run build
+      - name: Ejecutar pruebas y medir cobertura
+        run: npm test
+      - name: Publicar PWA como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: pwa-estimador-acero
+          path: |
+            index.html
+            app.js
+            calculator.js
+            service-worker.js
+            styles.css
+            metrics.css
+            manifest.webmanifest
+            icon.svg
+            icon-maskable.svg
+            widgets/
